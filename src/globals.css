@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 25% 20%; /* Texto menos oscuro en tema claro */
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 25% 20%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 25% 20%;
+    --primary: 234 56% 60%; /* Indigo más suave */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 234 56% 80%; /* Lighter Indigo */
+    --secondary-foreground: 234 56% 40%; /* Darker Indigo */
+    --muted: 234 56% 90%; /* Indigo menos contrastado */
+    --muted-foreground: 234 56% 50%; /* Foreground menos contrastado */
+    --accent: 234 56% 70%; /* Lighter Indigo */
+    --accent-foreground: 234 56% 30%; /* Darker Indigo */
+    --destructive: 0 70% 60%; /* Destructive más suave */
+    --destructive-foreground: 0 0% 100%;
+    --border: 234 56% 85%; /* Indigo Border más claro */
+    --input: 234 56% 85%; /* Indigo Input más claro */
+    --ring: 234 56% 60%; /* Indigo Ring más suave */
+    --radius: 0.5rem;
+    --chart-1: 234 56% 60%; /* Indigo más suave */
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+  }
+
+  .dark {
+    --background: 234 56% 15%; /* Dark Indigo más suave */
+    --foreground: 234 56% 85%; /* Texto menos brillante en tema oscuro */
+    --card: 234 56% 18%; /* Fondo de tarjeta más suave */
+    --card-foreground: 234 56% 75%; /* Texto menos brillante en tarjeta */
+    --popover: 234 56% 18%; /* Fondo de popover más suave */
+    --popover-foreground: 234 56% 75%; /* Texto menos brillante en popover */
+    --primary: 234 56% 65%; /* Indigo más suave */
+    --primary-foreground: 234 56% 15%; /* Texto primario menos brillante */
+    --secondary: 234 56% 45%; /* Dark Indigo más suave */
+    --secondary-foreground: 234 56% 85%; /* Texto secundario menos brillante */
+    --muted: 234 56% 35%; /* Muted Indigo más suave */
+    --muted-foreground: 234 56% 75%; /* Texto muted menos brillante */
+    --accent: 234 56% 55%; /* Indigo más suave */
+    --accent-foreground: 234 56% 85%; /* Texto accent menos brillante */
+    --destructive: 0 55% 40%; /* Destructive más suave */
+    --destructive-foreground: 234 56% 85%; /* Texto destructive menos brillante */
+    --border: 234 56% 25%; /* Dark Indigo Border más suave */
+    --input: 234 56% 25%; /* Dark Indigo Input más suave */
+    --ring: 234 56% 55%; /* Indigo Ring más suave */
+    --chart-1: 234 56% 55%; /* Indigo más suave */
+    --chart-2: 160 60% 50%;
+    --chart-3: 30 80% 60%;
+    --chart-4: 280 65% 65%;
+    --chart-5: 340 75% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
