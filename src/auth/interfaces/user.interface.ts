@@ -1,12 +1,12 @@
 
 
 export interface User {
-    id: string;
+    id?: string;
     name: string;
     email: string;
     password: string;
     roles: string[];
-    isActive: boolean;
+    isActive?: boolean;
     avatar?: string;
 };
 

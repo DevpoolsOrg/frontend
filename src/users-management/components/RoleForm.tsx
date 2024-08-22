@@ -1,9 +1,37 @@
-import { Controller, useForm } from 'react-hook-form';
-import {  ValidRoles } from '../types';
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { User } from '@/auth/interfaces/user.interface';
 import { useUserStore } from '../store/userStore';
+import { ValidRoles } from '../types';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import {
+    Form,
+    FormControl,
+    FormDescription,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from "@/components/shadcn/ui/form";
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/shadcn/ui/select"
+
+import { z } from 'zod';
+import { Button } from '@/components/shadcn/ui/button';
+
+const formSchema = z.object({
+    roles: z.string().min(2, {
+        message: "Roles es requerido.",
+    }),
+});
 
 
 
@@ -11,48 +39,63 @@ export const RoleForm = ({ user }: { user: User }) => {
 
 
     const updateUserRole = useUserStore(state => state.updateUserRole);
-    
-    const { control, reset, handleSubmit } = useForm<User>();
+
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            roles: user.roles[0],
+        },
+    });
+
     const navigate = useNavigate();
     useEffect(() => {
-        reset(user);
-    }, [user, reset]);
+        form.reset({
+            roles: user.roles[0],
+        });
+    }, [user, form.reset]);
 
-    const onsubmit = (data: User) => {
-        updateUserRole(data);
+    const HandleOnSubmit = (data: z.infer<typeof formSchema>) => {
+        user.roles = [data.roles];
+        updateUserRole(user);
         navigate('/dashboard/users');
-        
+
     }
 
     return (
-        <form  onSubmit={handleSubmit(onsubmit)} className="flex justify-center flex-col">
-          <div className="col-span-4">
-          <Controller
-                name="role"
-                control={control}
-                defaultValue={validRoles.user}
-                rules={{ required: "El rol es requerido" }}
-                render={({ field, fieldState: { error } }) => (
-                    <>
-                        <label className='font-medium text-gray-800'>Rol</label>
-                        <select
-                            {...field}
-                            value={field.value}
-                            onChange={field.onChange}
-                            className={`w-full mt-2 px-3 py-2 text-gray-800 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg ${error ? "border-red-500" : ""}`}
-                        >
-                            <option value={validRoles.user}>Usuario</option>
-                            <option value={validRoles.admin}>Administrador</option>
-                            <option value={validRoles.adminTech}>Administrador Tecnico</option>
-                        </select>
-                        {error && <p className="text-sm text-red-500">{error.message}</p>}
-                    </>
-                )}
-
-            />
-          </div>
-            <button type="submit" className="col-span-4 md:col-span-2 bg-indigo-600 text-white m-2 py-2 rounded-lg">Guardar</button>
-        </form>
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(HandleOnSubmit)}>
+                <FormField
+                    control={form.control}
+                    name="roles"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Roles</FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                <FormControl>
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Selecione un rol" />
+                                    </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        {Object.values(ValidRoles).map((role) => (
+                                            <SelectItem key={role} value={role}>
+                                                <SelectLabel>{role}</SelectLabel>
+                                            </SelectItem>
+                                        ))}
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
+                            <FormDescription>
+                                Selecciona el rol que deseas asignar al usuario.
+                            </FormDescription>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <Button >Cambiar</Button>
+            </form>
+        </Form>
 
     )
 }

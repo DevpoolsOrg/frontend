@@ -1,7 +1,6 @@
-import { Button } from '@/components/ui/button';
-import { User } from '@/users-management/types';
+import { Button } from '@/components/shadcn/ui/button';
+import {  ValidRoles } from '@/users-management/types';
 import { ColumnDef } from '@tanstack/react-table';
-import { validRoles } from '@/users-management/types';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,24 +8,26 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from '@/components/shadcn/ui/dropdown-menu';
 import { MoreHorizontal } from 'lucide-react';
-import { UserContext } from '@/users-management/store';
-import { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-const renameRole = (role: string) => {
-  switch (role) {
-    case validRoles.superUser:
-      return 'Super Usuario';
-    case validRoles.adminTech:
-      return 'Administrador técnico';
-    case validRoles.admin:
-      return 'Administrador';
-    case validRoles.user:
-      return 'Usuario';
+
+import { useNavigate } from 'react-router-dom';
+import { User } from '@/auth/interfaces/user.interface';
+import { useUserStore } from '@/users-management/store/userStore';
+
+const renameRole = (roles: string) => {
+  switch (roles) {
+      case ValidRoles.SUPERADMIN:
+          return 'Super Usuario';
+      case ValidRoles.ADMIN:
+          return 'Administrador';
+      case ValidRoles.USER:
+          return 'Usuario';
+    default:
+            return 'Usuario';
   }
-};
+}
 
 
 export const columns: ColumnDef<User>[] = [
@@ -44,7 +45,7 @@ export const columns: ColumnDef<User>[] = [
       );
     },
     cell: ({ row }) => {
-      return `${row.original.firstName}, ${row.original.lastName}`;
+      return `${row.original.name}`;
     },
   },
   {
@@ -78,7 +79,7 @@ export const columns: ColumnDef<User>[] = [
       );
     },
     cell: ({ row }) => {
-      return renameRole(row.original.role);
+      return renameRole(row.original.roles[0]);
     },
   },
   {
@@ -103,7 +104,7 @@ export const columns: ColumnDef<User>[] = [
     header: 'Acciones',
     cell: ({ row }) => {
 
-      const {  deleteUser,  } = useContext(UserContext);
+      const deleteUser = useUserStore(state => state.deleteUser);
       const handleDelete = (id: string) => {
         window.confirm("¿Estas seguro de eliminar este usuario?")
         deleteUser(id);
@@ -123,13 +124,13 @@ export const columns: ColumnDef<User>[] = [
             <DropdownMenuLabel>Acciones</DropdownMenuLabel>
             <DropdownMenuItem
               className="text-foreground"
-              onClick={() => navigate(`edit/${row.original._id}`)}
+              onClick={() => navigate(`edit/${row.original.id}`)}
             >
               Editar
             </DropdownMenuItem>
             <DropdownMenuItem
               className="text-red-500"
-              onClick={() => handleDelete(row.original._id!)}
+              onClick={() => handleDelete(row.original.id!)}
             >
               Eliminar
             </DropdownMenuItem>
