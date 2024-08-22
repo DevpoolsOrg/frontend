@@ -9,7 +9,7 @@ interface AuthStoreI {
     isLoading: boolean;
     token:string;
     login: ( user: UserLogin ) => Promise<void>;
-    logout: () => void;
+    logout: () => Promise<void>;
     register: ( user: UserRegister ) => Promise<void>;
     checkAuth: () => void;
     handleError: (error: any) => void;
@@ -46,8 +46,9 @@ export const useAuthStore = create<AuthStoreI>( (set, get) => ({
             set({ isLoading: true });
             const response = await AuthRequests.checkAuth();
             if( response.status === 200 ) return get().handleLogin( response.data );
-            get().handleError( response.status );
-            get().logout();
+            const res = await AuthRequests.logout();
+            if( res.status === 204 ) return set({ user: undefined, isLoading: false, token: '' });
+
     },
     handleError: (statusCode: number) => {
         handleStatusErrors( statusCode );

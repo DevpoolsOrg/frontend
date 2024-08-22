@@ -81,7 +81,7 @@ export const RegisterForm = () => {
               <FormItem>
                 <FormLabel>Correo Electronico</FormLabel>
                 <FormControl>
-                  <Input placeholder="usuario" type="email" {...field} />
+                  <Input placeholder="usuario@mail.com" type="email" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

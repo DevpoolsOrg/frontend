@@ -28,13 +28,14 @@ export const Chart = ({chartData, chartConfig}: ChartProps) => {
     const [activeChart, setActiveChart] =
     useState<keyof typeof chartConfig>("desktop")
 
-  const total = useMemo(
-    () => ({
-      desktop: chartData.reduce((acc, curr) => acc + curr.desktop, 0),
-      mobile: chartData.reduce((acc, curr) => acc + curr.mobile, 0),
-    }),
-    []
-  )
+    const total = useMemo(
+        () => ({
+          desktop: chartData.reduce((acc, curr) => acc + curr.desktop, 0),
+          mobile: chartData.reduce((acc, curr) => acc + curr.mobile, 0),
+        }),
+        [chartData]
+      )
+      
 
   return (
     <Card className="m-auto">
@@ -81,18 +82,18 @@ export const Chart = ({chartData, chartConfig}: ChartProps) => {
         >
             <CartesianGrid vertical={false} />
             <XAxis
-            dataKey="date"
-            tickLine={false}
-            axisLine={false}
-            tickMargin={8}
-            minTickGap={32}
-            tickFormatter={(value) => {
+              dataKey="date"
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              minTickGap={32}
+              tickFormatter={(value) => {
                 const date = new Date(value)
                 return date.toLocaleDateString("es-AR", {
-                month: "short",
-                day: "numeric",
+                  month: "short",
+                  day: "numeric",
                 })
-            }}
+              }}
             />
             <ChartTooltip
             content={

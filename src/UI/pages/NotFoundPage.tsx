@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom"
-import { NotFound } from "../../Home/svgs/NotFound"
+import { NotFound } from "../../assets/NotFound"
 
 export const NotFoundPage = () => {
     return (
         <main>
             <div className="max-w-screen-xl mx-auto px-4 flex items-center justify-start h-screen md:px-8">
                 <div className="max-w-lg mx-auto space-y-3 text-center">
-                    <h3 className="text-gray-800 text-4xl font-semibold sm:text-5xl">
+                    <h3 className=" text-4xl font-semibold sm:text-5xl">
                         Página no encontrada
                     </h3>
-                    <p className="text-gray-600">
+                    <p className="">
                         Lo sentimos, la página que estás buscando no se pudo encontrar o ha sido eliminada.
                     </p>
                     <NotFound />

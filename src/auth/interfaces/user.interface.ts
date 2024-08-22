@@ -5,7 +5,9 @@ export interface User {
     name: string;
     email: string;
     password: string;
-    role: string;    
+    roles: string[];
+    isActive: boolean;
+    avatar: string;
 };
 
 export interface UserLogin {

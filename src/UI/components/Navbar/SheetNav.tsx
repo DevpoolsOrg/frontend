@@ -13,7 +13,7 @@ export const SheetNav = () => {
           <MenuIcon size={24} />
         </SheetTrigger>
         <SheetContent>
-          <SheetHeader className="mb-8">
+          <SheetHeader className="">
             <SheetTitle>
               <HeadNav />
             </SheetTitle>
