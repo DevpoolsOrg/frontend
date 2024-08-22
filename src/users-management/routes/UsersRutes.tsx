@@ -17,8 +17,8 @@ export const UsersRutes = () => {
   return (
    <Routes>
         <Route path="/" element={ <UsersView /> } />
-        <Route path="/add" element={<AddUserView />} />
-        <Route path="/edit/:id" element={ <EditUserView /> } />
+        <Route path="add" element={<AddUserView />} />
+        <Route path="edit/:id" element={ <EditUserView /> } />
         <Route path="/*" element={ <NotFoundPage /> } />
     </Routes>
     

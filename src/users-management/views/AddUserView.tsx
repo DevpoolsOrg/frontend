@@ -1,5 +1,5 @@
 
-import { UserFormLayout } from '../layout'
+import { UserFormLayout } from '@/users-management/layout/UserFormLayout'
 import { UserForm } from '../components'
 
 export const AddUserView = () => {

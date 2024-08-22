@@ -1,31 +1,29 @@
-import React from 'react'
-import { TbCloudLock } from 'react-icons/tb';
-
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/shadcn/ui/card";
+import { LockKeyhole } from "lucide-react";
+import React from "react";
 
 interface UserFormLayoutProps {
-    title: string;
-    children: React.ReactNode;
+  title: string;
+  children: React.ReactNode;
 }
 
 export const UserFormLayout = ({ children, title }: UserFormLayoutProps) => {
-    return (
-        <div className="flex flex-col items-center justify-center min-h-screen">
-            <div className="w-full max-w-xl space-y-8 px-4 py-4 bg-white text-gray-600 shadow-xl rounded-lg">
-                <div className="flex flex-col items-center text-center">
-                    <div>
-                        <div className='grid place-items-center '>
-                            <TbCloudLock   className='text-6xl text-blue-900' />
-                            <p
-                                className="text-gray-800 text-2xl font-bold sm:text-3xl"
-                            >
-                                {title}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <hr />
-                {children}
-            </div>
-        </div>
-    )
-}
+  return (
+    <div className="h-full flex justify-center items-center ">
+        <Card className="w-full m-2 sm:w-1/2">
+          <CardHeader className="flex flex-col justify-center items-center">
+            <LockKeyhole size={24} />
+            <CardTitle>{title}</CardTitle>
+          </CardHeader>
+          <CardContent className="py-4">
+            {children}
+          </CardContent>
+        </Card>
+    </div>
+      );
+};

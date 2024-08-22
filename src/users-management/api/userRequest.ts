@@ -1,7 +1,7 @@
 
 import { User } from '@/auth/interfaces/user.interface';
 import httpClientAdapter from '@/adapters/httpClient.adapter';
-const baseURL = import.meta.env.VITE_API_URL;
+const baseURL = import.meta.env.VITE_URL_API
 
 
 export class UserRequest {
@@ -18,7 +18,7 @@ export class UserRequest {
   
   static updateUserRoleApi = async (user:User) => {
     const { roles } = user;
-    const response = await httpClientAdapter.patch<User>(`${baseURL}/api/users/change-role/${user.id}`, roles, { withCredentials:true });
+    const response = await httpClientAdapter.patch<User>(`${baseURL}/api/users/change-role/${user.id}`, {roles}, { withCredentials:true });
     return response;
   };
   

@@ -15,7 +15,6 @@ export const DarshboardLayout = () => {
     return (
         <main className="h-full flex flex-col">
             <SubMenu />
-            <h1 className="m-auto text-2xl">Dashboard</h1>
             <Outlet />
         </main>
     )

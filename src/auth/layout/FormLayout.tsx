@@ -1,10 +1,20 @@
 import { Card, CardContent, CardHeader } from "@/components/shadcn/ui/card";
 import { LockKeyhole } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useAuthStore } from "../store/authStore";
 
 export const FormLayout = () => {
+
+  const user = useAuthStore(state => state.user);
   const location = useLocation();
+const navigate = useNavigate();
+
+  useEffect(() => {
+    user && navigate('/', { replace: true });
+  },[user]);
+
+
   const [title, setTitle] = useState<string>('Auth');
 
   useEffect(() => {

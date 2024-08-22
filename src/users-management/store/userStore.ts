@@ -23,8 +23,8 @@ export const useUserStore = create<UserStoreType>((set, get) => ({
     createUser: async(user) => {
         set({ isLoading: true });
         const response = await UserRequest.createUserApi(user);
-        if( response.status === 201 ){
-            set({ isLoading: false, users: [...get().users, response.data] });
+        if( response.status === 202 ){
+            set({ isLoading: false, users: [...get().users, response.data  ] });
             return handleSuccess('Usuario creado');
         }
         handleStatusErrors( response.status );
@@ -33,7 +33,8 @@ export const useUserStore = create<UserStoreType>((set, get) => ({
         set({ isLoading: true });
         const response = await UserRequest.updateUserRoleApi(user);
         if( response.status === 202 ){
-            set({ isLoading: false, users: get().users.map( u => u.id === user.id ? response.data : u ) });
+            console.log(response.data)
+            set({ isLoading: false, users: get().users.map( u => u.id === user.id ? user  : u ) });
             return handleSuccess('Rol actualizado');
         }
         handleStatusErrors( response.status );

@@ -43,14 +43,15 @@ export const RoleForm = ({ user }: { user: User }) => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            roles: user.roles[0],
+            roles: '',
         },
     });
 
     const navigate = useNavigate();
+
     useEffect(() => {
         form.reset({
-            roles: user.roles[0],
+            roles: user?.roles[0],
         });
     }, [user, form.reset]);
 
@@ -58,7 +59,6 @@ export const RoleForm = ({ user }: { user: User }) => {
         user.roles = [data.roles];
         updateUserRole(user);
         navigate('/dashboard/users');
-
     }
 
     return (
@@ -78,11 +78,12 @@ export const RoleForm = ({ user }: { user: User }) => {
                                 </FormControl>
                                 <SelectContent>
                                     <SelectGroup>
-                                        {Object.values(ValidRoles).map((role) => (
-                                            <SelectItem key={role} value={role}>
-                                                <SelectLabel>{role}</SelectLabel>
-                                            </SelectItem>
-                                        ))}
+                                       <SelectItem value={ValidRoles.ADMIN}>
+                                            <SelectLabel>Administrador</SelectLabel>
+                                        </SelectItem>
+                                        <SelectItem value={ValidRoles.USER}>
+                                            <SelectLabel>Usuario</SelectLabel>
+                                        </SelectItem>
                                     </SelectGroup>
                                 </SelectContent>
                             </Select>

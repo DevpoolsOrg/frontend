@@ -1,9 +1,6 @@
 import httpClientAdapter from "@/adapters/httpClient.adapter";
 
-
-
 import { UserResponseApi } from "@/auth/interfaces/user.interface";
-import { AxiosResponse } from "axios";
 
 export class AuthRequests {
     

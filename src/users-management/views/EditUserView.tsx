@@ -1,18 +1,19 @@
-import { useContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { UserFormLayout } from "../layout"
-import { UserContext } from "../store"
-import { User } from "../types"
+import { UserFormLayout } from "@/users-management/layout/UserFormLayout"
+import { User } from "@/auth/interfaces/user.interface"
 import { RoleForm } from "../components/RoleForm"
+import { useUserStore } from "../store/userStore"
 
 export const EditUserView = () => {
   const { id } = useParams()
-  const { users } = useContext(UserContext)
-  const [user, setUser] = useState<User | null>(null)
+  const users = useUserStore(state => state.users);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
+    console.log(user)
     if(id){
-      const user = users.find(user => user._id === id)
+      const user = users.find(user => user.id === id);
       if(user) setUser(user)
     }
   }

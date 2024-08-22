@@ -79,7 +79,7 @@ export const columns: ColumnDef<User>[] = [
       );
     },
     cell: ({ row }) => {
-      return renameRole(row.original.roles[0]);
+      return renameRole(row.original?.roles[0]);
     },
   },
   {
@@ -96,7 +96,7 @@ export const columns: ColumnDef<User>[] = [
       );
     },
     cell: ({ row }) => {
-      return row.original.isActive ? 'Activo' : 'Desactivado';
+      return row.original?.isActive ? 'Activo' : 'Desactivado';
     },
   },
   {

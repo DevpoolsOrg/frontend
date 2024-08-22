@@ -15,12 +15,17 @@ export const MenuList = () => {
   const logout = useAuthStore((state) => state.logout);
   const navigate = useNavigate();
 
+  const AdminNavigation = [
+    { title: 'Dashboard', path: '/dashboard' },
+    { title: 'Foro', path: '/forum' },
+  ];
 
-  const navigation = [
-      { title: 'Inicio', path: '/foro' },
-    ];
 
-    user?.roles.includes('admin') && navigation.push({ title: 'Dasboard', path: '/dashboard' });
+  const navigation = [];
+
+
+    user?.roles.includes('admin') && navigation.push(...AdminNavigation);
+    user?.roles.includes('user') && navigation.push({ title: 'Foro', path: '/forum' });
 
 
     const handleLogout = async() => {

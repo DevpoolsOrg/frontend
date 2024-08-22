@@ -1,3 +1,4 @@
+import { useAuthStore } from "@/auth/store/authStore";
 import {
     Menubar,
     MenubarContent,
@@ -6,9 +7,13 @@ import {
     MenubarSeparator,
     MenubarTrigger,
   } from "@/components/shadcn/ui/menubar";
+import { ValidRoles } from "@/users-management";
 import { Link } from "react-router-dom";
 
 export const SubMenu = () => {
+
+  const user = useAuthStore((state) => state.user);
+
   return (
       <Menubar className="mx-auto mt-2">
         <MenubarMenu>
@@ -19,18 +24,27 @@ export const SubMenu = () => {
             </MenubarItem>
             <MenubarItem>Propuestas</MenubarItem>
             <MenubarSeparator />
-            <MenubarItem>Share</MenubarItem>
-            <MenubarSeparator />
-            <MenubarItem>Print</MenubarItem>
           </MenubarContent>
         </MenubarMenu>
         <MenubarMenu>
           <MenubarTrigger>Discusiones</MenubarTrigger>
           <MenubarContent>
-            <MenubarItem>Settings</MenubarItem>
-            <MenubarItem>Exit</MenubarItem>
+            <MenubarItem>Ver todas</MenubarItem>
+            <MenubarItem>Crear un post</MenubarItem>
           </MenubarContent>
         </MenubarMenu>
+        {
+          user?.roles.includes(ValidRoles.ADMIN || ValidRoles.SUPERADMIN) && (
+            <MenubarMenu>
+              <MenubarTrigger>Administración</MenubarTrigger>
+              <MenubarContent>
+                <MenubarItem>
+                  <Link className="w-full h-full" to="/dashboard/users">Usuarios</Link>
+                </MenubarItem>
+
+              </MenubarContent>
+            </MenubarMenu>
+        )}
 
       </Menubar>
   );

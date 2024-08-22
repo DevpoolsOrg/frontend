@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -73,11 +72,9 @@ export const UserForm = () => {
             roles: [data.roles],
             password: data.password,
         }
-        createUser(newUser)
-            ;
+        createUser(newUser);
         navigate('/dashboard/users');
         form.reset();
-
     }
     return (
         <Form {...form}>
