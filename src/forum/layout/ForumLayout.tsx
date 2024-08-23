@@ -4,10 +4,10 @@ export const ForumLayout = () => {
   return (
     <>
         <main className="grid grid-cols-12">
-            <section className="col-span-8 grid place-items-center border">
+            <section className="sm:col-span-8 grid place-items-center border col-span-12">
                 <Outlet/>
             </section>
-            <section className="col-span-4 grid place-items-center border">recomendaciones</section>
+            <section className="sm:col-span-4 sm:grid place-items-center border hidden">recomendaciones</section>
         </main>
     </>
   )
