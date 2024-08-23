@@ -1,14 +1,21 @@
+import { User } from "@/auth/interfaces/user.interface";
 
 
 export interface ForumPost {
     id: string;
     title: string;
     content:string;
-    userId: string;
+    user: User;
     tematicArea: string;
     isPublished: boolean;
     category: Category;
     votes: Vote[];
+}
+
+export interface CreateForumPost {
+    title: string;
+    content:string;
+    temathicArea: string;
 }
 
 
@@ -29,7 +36,7 @@ export interface ForumStoreI {
     categories: Category[];
     selectedPost: ForumPost | null;
     isLoading: boolean;
-    createPost: (post: ForumPost) => void;
+    createPost: (post: CreateForumPost, idCategory:string ) => void;
     updatePost: (postId: string, post: ForumPost) => void;
     deletePost: (postId: string) => void;
     getPosts: () => void;

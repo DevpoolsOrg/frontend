@@ -18,7 +18,10 @@ const chartConfig = {
   } satisfies ChartConfig;
 
 
+
+
 export const DashboarCharView = () => {
+  
   return (
     <Chart chartData={chartData} chartConfig={chartConfig} />
   

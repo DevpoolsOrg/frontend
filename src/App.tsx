@@ -5,14 +5,17 @@ import { AppRouter } from "./router/AppRouter";
 import { AppLayout } from "./UI/layout/AppLayout";
 import { useAuthStore } from "./auth/store/authStore";
 import { useEffect } from "react";
+import { useForumStore } from "./forum/store/forum.store";
 
 function App() {
 
   const checkAuth = useAuthStore((state) => state.checkAuth);
+  const getCategories = useForumStore((state) => state.getCategories);
   
 
   useEffect(() => {
     checkAuth();
+    getCategories();
   }, [checkAuth]);
 
   return (

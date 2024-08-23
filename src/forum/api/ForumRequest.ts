@@ -1,5 +1,5 @@
 import httpClientAdapter from "@/adapters/httpClient.adapter";
-import { Category, ForumPost, Vote } from "../interfaces/forum.interface";
+import { Category, CreateForumPost, ForumPost, Vote } from "../interfaces/forum.interface";
 
 
 
@@ -17,8 +17,8 @@ export class ForumRequests {
         return response;
     };
 
-    static async createPost(data: { title: string, content: string, category: string }) {
-        const response = await httpClientAdapter.post<ForumPost>(`${this.baseUrl}/api/posts`, data, { withCredentials: true });
+    static async createPost(data: CreateForumPost, idCategory: string) {
+        const response = await httpClientAdapter.post<ForumPost>(`${this.baseUrl}/api/posts/${idCategory}`, data, { withCredentials: true });
         return response;
     };
 
@@ -32,7 +32,7 @@ export class ForumRequests {
     }
 
     static async votePost(postId: string, voteOption: string) {
-        const response = await httpClientAdapter.post<Vote>(`${this.baseUrl}/api/posts/${postId}/vote`, { voteOption }, { withCredentials: true });
+        const response = await httpClientAdapter.post<Vote>(`${this.baseUrl}/api/votes/${postId}/`, { voteOption }, { withCredentials: true });
         return response;
     };
 

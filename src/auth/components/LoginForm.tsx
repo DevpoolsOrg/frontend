@@ -42,7 +42,7 @@ export const LoginForm = () => {
     async function onSubmit(values: z.infer<typeof formSchema>) {
         await login(values);
         form.reset();
-        navigate('/dashboard');
+        navigate('/forum');
     }
     return (
         <Form {...form}>

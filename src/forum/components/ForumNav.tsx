@@ -20,6 +20,9 @@ export const ForumNav = () => {
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
              <Link to="/forum">Ver todas</Link>
             </NavigationMenuLink>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+             <Link to="/forum/create">Crear post</Link>
+            </NavigationMenuLink>
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>

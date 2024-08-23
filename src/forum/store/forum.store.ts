@@ -1,9 +1,9 @@
 import { create } from "zustand";
 import { ForumStoreI } from "../interfaces/forum.interface";
 import { ForumRequests } from "../api/ForumRequest";
-import { handleStatusErrors } from "../utils/handleStatusCode";
+import { handleStatusErrors, handleSuccess } from "../utils/handleStatusCode";
 
-export const useForumStore = create<ForumStoreI>((set) => ({
+export const useForumStore = create<ForumStoreI>((set, get) => ({
     posts: [],
     categories: [],
     selectedPost: null,
@@ -47,9 +47,25 @@ export const useForumStore = create<ForumStoreI>((set) => ({
         handleStatusErrors( response.status );
     },
 
-    getCategories: () => set((state) => ({ categories: state.categories })),
+    getCategories: async() => {
+        set({ isLoading: true });
+        const response = await ForumRequests.getCategories();
+        if( response.status === 200 ){
+            return set({ categories: response.data, isLoading: false });
+        }
+        handleStatusErrors( response.status );
+    },
 
-    createPost: (post) => set((state) => ({ posts: [...state.posts, post] })),
+    createPost: async(post, idCategory) => {
+        set({ isLoading: true });
+        const response = await ForumRequests.createPost(post, idCategory);
+        if( response.status === 201 ){
+            set({ isLoading: false, posts: [...get().posts, response.data] });
+            return handleSuccess('Post creado');
+        }
+        set({ isLoading: false });
+        handleStatusErrors( response.status );
+    },
 
     createCategory: (category) => set((state) => (
         { categories: [...state.categories, category] }
